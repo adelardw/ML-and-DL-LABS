@@ -44,8 +44,8 @@ class GradientLR:
         bias = np.ones(X.shape[0]).reshape(-1,1)
         X = np.hstack((bias,X))
         #np.random.seed(13)
-        #self.weights = np.random.rand(X.shape[1])
-        self.weights = np.zeros(X.shape[1])
+        self.weights = np.random.rand(X.shape[1])
+        #self.weights = np.zeros(X.shape[1])
 
         for i in range(self.iterations):
             self.weights -=  self.alpha* self.grad(X, y,w = self.weights )
@@ -58,7 +58,10 @@ class GradientLR:
 # Task 4
 
 def get_feature_importance(linear_regression):
-    return []
+    w = np.abs(linear_regression.weights[1:])
+
+    return w/ w.sum()
 
 def get_most_important_features(linear_regression):
-    return []
+
+    return np.argsort(np.abs(linear_regression.weights)[1:])[::-1]
